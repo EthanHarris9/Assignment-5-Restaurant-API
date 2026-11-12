@@ -108,3 +108,25 @@ app.get('/api/menu/:id', (req, res) => {
     }
 });
 
+// POST /menu - Create a new menu item
+app.post('/api/menu', (req, res) => {
+    // Extract data from request body
+    const { name, description, price, category, ingredients, available } = req.body;
+  
+  	// Create a new menu item with generated ID
+    const newMenu = {
+        id: menu.length + 1,
+        name,
+        description,
+        price,
+        category,
+        ingredients,
+        available
+    };
+  
+    // Add to menu array
+    menu.push(newMenu);
+  
+    // Return the created menu item with 201 status
+    res.status(201).json(newMenu);
+});
