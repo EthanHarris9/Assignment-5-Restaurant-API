@@ -157,3 +157,21 @@ app.put('/api/menu/:id', (req, res) => {
     // Return the updated menu item
     res.json(menu[menuIndex]);
 });
+
+// DELETE /menu/:id - Delete a menu item
+app.delete('/api/menu/:id', (req, res) => {
+    const menuId = parseInt(req.params.id);
+  
+    // Find the menu index
+    const menuIndex = menu.findIndex(m => m.id === menuId);
+  
+    if (menuIndex === -1) {
+        return res.status(404).json({ error: 'menu item not found' });
+    }
+  
+    // Remove the menu item from array
+    const deletedMenu = menu.splice(menuIndex, 1)[0];
+  
+    // Return the deleted menu item
+    res.json({ message: 'menu item deleted successfully', menu_item: deletedMenu });
+});
