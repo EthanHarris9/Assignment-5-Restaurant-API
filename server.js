@@ -96,11 +96,11 @@ app.get('/api/menu', (req, res) => {
 // GET /menu/:id - Return a specific menu item by ID
 app.get('/api/menu/:id', (req, res) => {
     const menuId = parseInt(req.params.id);
-    const menu = books.find(m => m.id === menuId);
+    const menuItem = menu.find(m => m.id === menuId);
   
 	// Return menu item if it is found
-    if (menu) {
-        res.json(menu);
+    if (menuItem) {
+        res.json(menuItem);
     } else {
         res.status(404).json({ error: 'menu item not found' });
     }
