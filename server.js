@@ -72,6 +72,20 @@ const port = 3000;
 app.use(express.json());
 
 app.listen(port, () => {
-    console.log(`Restaurant API server running at http://localhost:${port}/api/menu`);
+    console.log(`Restaurant API server running at http://localhost:${port}/api`);
     });
+
+
+module.exports = app;
+
+// Root endpoint - API homepage
+app.get('/api', (req, res) => {
+    res.json({ 
+        message: "Welcome to the Restaurant API", 
+        endpoints: { 
+            "GET /menu": "Get entire menu", 
+            "GET /menu/:id": "Get a specific menu item by ID" 
+        } 
+    }); 
+});
 
