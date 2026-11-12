@@ -61,3 +61,17 @@ const menuItems = [
 ];
 
 // Define routes and implement middleware here
+
+// Creating the express server
+const express = require('express');
+const app = express();
+// Starts server on port 3,000
+const port = 3000;
+
+// Middleware to parse JSON requests
+app.use(express.json());
+
+app.listen(port, () => {
+    console.log(`Restaurant API server running at http://localhost:${port}/api/menu`);
+    });
+
