@@ -89,3 +89,22 @@ app.get('/api', (req, res) => {
     }); 
 });
 
+// GET /menu - Return all menu items
+app.get('/api/menu', (req, res) => {
+      // Sends back the menu as JSON as the response to the request
+      res.json(menu);
+});
+
+// GET /menu/:id - Return a specific menu item by ID
+app.get('/api/menu/:id', (req, res) => {
+    const menuId = parseInt(req.params.id);
+    const menu = books.find(m => m.id === menuId);
+  
+	// Return menu item if it is found
+    if (menu) {
+        res.json(menu);
+    } else {
+        res.status(404).json({ error: 'menu item not found' });
+    }
+});
+
