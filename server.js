@@ -130,3 +130,30 @@ app.post('/api/menu', (req, res) => {
     // Return the created menu item with 201 status
     res.status(201).json(newMenu);
 });
+
+// PUT /menu/:id - Update an existing menu item
+app.put('/api/menu/:id', (req, res) => {
+    const menuId = parseInt(req.params.id);
+    const { name, description, price, category, ingredients, available } = req.body;
+  
+    // Find the menu item to update
+    const menuIndex = menu.findIndex(m => m.id === menuId);
+  
+    if (menuIndex === -1) {
+          return res.status(404).json({ error: 'menu item not found' }); 
+    }
+  
+    // Update the menu item
+    menu[menuIndex] = {
+        id: menuId,
+        name,
+        description,
+        price,
+        category,
+        ingredients,
+        available
+    };
+  
+    // Return the updated menu item
+    res.json(menu[menuIndex]);
+});
