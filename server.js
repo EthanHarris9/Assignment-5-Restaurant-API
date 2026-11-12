@@ -14,7 +14,7 @@ app.listen(port, () => {
 module.exports = app;
 
 // Data for the server
-const menuItems = [
+const menu = [
   {
     id: 1,
     name: "Classic Burger",
