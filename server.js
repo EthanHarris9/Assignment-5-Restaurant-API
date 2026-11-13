@@ -130,8 +130,8 @@ const menuValidation = [
     .toFloat(),
 
   body('category')
-    .isIn(['appertizer', 'entree', 'dessert', 'beverage'])
-    .withMessage('category must be appertizer, entree, dessert, beverage'),
+    .isIn(['appetizer', 'entree', 'dessert', 'beverage'])
+    .withMessage('category must be appetizer, entree, dessert, beverage'),
 
   body('ingredients')
     .isArray({ min: 1 })
