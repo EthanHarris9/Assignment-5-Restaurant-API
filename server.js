@@ -72,9 +72,27 @@ const menu = [
 ];
 
 // Define routes and implement middleware here
+const requestLogger = (req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
+
+  // Log request body for POST and PUT requests
+  if (req.method === 'POST' || req.method === 'PUT')
+{
+  console.log('Request Body:', JSON.stringify(req.body, null, 2));
+}
+
+  next(); // Passing the control to the next middleware
+}
+
+
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Custom logging middleware
+app.use(requestLogger);
+
 
 // Root endpoint - API homepage
 app.get('/api', (req, res) => {
