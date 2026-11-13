@@ -3,6 +3,10 @@
 // Creating the express server
 const express = require('express');
 const app = express();
+
+// Import express-validator
+const { body, validationResult } = require('express-validator');
+
 // Starts server on port 3,000
 const port = 3000;
 
