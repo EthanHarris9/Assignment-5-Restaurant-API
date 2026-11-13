@@ -93,7 +93,7 @@ const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const errorMessages = errors.arrary().map(error =>.msg);
+    const errorMessages = errors.arrary().map(error => error.msg);
 
     return res.status(400).json({
       error: 'Validation Failed',
@@ -180,7 +180,7 @@ app.get('/api/menu/:id', (req, res) => {
 });
 
 // POST /menu - Create a new menu item
-app.post('/api/menu', (req, res) => {
+app.post('/api/menu', menuValidation, handleValidationErrors, (req, res) => {
     // Extract data from request body
     const { name, description, price, category, ingredients, available } = req.body;
   
@@ -203,7 +203,7 @@ app.post('/api/menu', (req, res) => {
 });
 
 // PUT /menu/:id - Update an existing menu item
-app.put('/api/menu/:id', (req, res) => {
+app.put('/api/menu/:id', menuValidation, handleValidationErrors, (req, res) => {
     const menuId = parseInt(req.params.id);
     const { name, description, price, category, ingredients, available } = req.body;
   
