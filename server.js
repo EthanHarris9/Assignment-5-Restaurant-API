@@ -89,6 +89,26 @@ const requestLogger = (req, res, next) => {
   next(); // Passing the control to the next middleware
 }
 
+const handleValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.arrary().map(error =>.msg);
+
+    return res.status(400).json({
+      error: 'Validation Failed',
+      messages: errorMessages
+    });
+  }
+
+  // Set default value for available if not provided
+  if (req.body.available === undefined) {
+      req.body.available = true;
+  }
+
+  next();
+};
+
 // validation rules for menu items
 const menuValidation = [
   body('name')
@@ -114,7 +134,7 @@ const menuValidation = [
     .withMessage('Ingredients must be an array with at least one ingredient'),
 
   body('available')
-    .default(true)
+    .optional()
     .isBoolean()
     .withMessage('Available must be true or false')
     .toBoolean(),
