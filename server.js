@@ -89,6 +89,37 @@ const requestLogger = (req, res, next) => {
   next(); // Passing the control to the next middleware
 }
 
+// validation rules for menu items
+const menuValidation = [
+  body('name')
+    .isLength({ min: 3 })
+    .withMessage('Name must be at least 3 characters long'),
+
+  body('description')
+    .isLength({ min: 10 })
+    .withMessage('Description must be at least 10 characters long'),
+
+  body('price')
+    .notEmpty()
+    .withMessage('Price is required')
+    .isFloat({ gt: 0 })
+    .withMessage('Price must be a number greater than 0'),
+
+  body('category')
+    .isIn(['apperizer', 'entree', 'dessert', 'beverage'])
+    .withMessage('category must be apperizer, entree, dessert, beverage'),
+
+  body('ingredients')
+    .isArray({ min: 1 })
+    .withMessage('Ingredients must be an array with at least one ingredient'),
+
+  body('available')
+    .default(true)
+    .isBoolean()
+    .withMessage('Available must be true or false')
+    .toBoolean(),
+
+];
 
 
 // Middleware to parse JSON requests
