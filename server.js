@@ -76,6 +76,8 @@ const menu = [
 ];
 
 // Define routes and implement middleware here
+
+// Custom middleware function for logging
 const requestLogger = (req, res, next) => {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
@@ -89,6 +91,7 @@ const requestLogger = (req, res, next) => {
   next(); // Passing the control to the next middleware
 }
 
+// Custom middleware function for validation
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
 
