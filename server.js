@@ -93,7 +93,7 @@ const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const errorMessages = errors.arrary().map(error => error.msg);
+    const errorMessages = errors.array().map(error => error.msg);
 
     return res.status(400).json({
       error: 'Validation Failed',
@@ -123,11 +123,12 @@ const menuValidation = [
     .notEmpty()
     .withMessage('Price is required')
     .isFloat({ gt: 0 })
-    .withMessage('Price must be a number greater than 0'),
+    .withMessage('Price must be a number greater than 0')
+    .toFloat(),
 
   body('category')
-    .isIn(['apperizer', 'entree', 'dessert', 'beverage'])
-    .withMessage('category must be apperizer, entree, dessert, beverage'),
+    .isIn(['appertizer', 'entree', 'dessert', 'beverage'])
+    .withMessage('category must be appertizer, entree, dessert, beverage'),
 
   body('ingredients')
     .isArray({ min: 1 })
